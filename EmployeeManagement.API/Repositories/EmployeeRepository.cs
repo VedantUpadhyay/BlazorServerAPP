@@ -44,6 +44,17 @@ namespace EmployeeManagement.API.Repositories
             return _db.Employees.ToList();
         }
 
+
+        public async Task<Employee> GetEmployeeByEmail(string email)
+        {
+            return await Task.Run(() => {
+
+                return _db.Employees
+                   .FirstOrDefault(e => e.Email == email);
+            });
+        }
+
+
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
             var result = _db.Employees

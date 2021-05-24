@@ -64,6 +64,14 @@ namespace EmployeeManagement.API.Controllers
                         return BadRequest();
                     }
 
+                    var emp = await _employeeRepository.GetEmployeeByEmail(employee.Email);
+                    if (emp != null)
+                    {
+                        ModelState.AddModelError("email", "Employee email already in use.");
+                        return BadRequest(ModelState);
+                    }
+
+
                     var createdEmployee = await _employeeRepository.AddEmployee(employee);
 
                     return CreatedAtAction(nameof(GetEmployee), new
@@ -77,6 +85,58 @@ namespace EmployeeManagement.API.Controllers
 
                 throw;
             }
+        } 
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateEmployee(int id,Employee employee)
+        {
+            try
+            {
+                if (id != employee.EmployeeId)
+                {
+                    return BadRequest("Employee ID mismatch.");
+                }
+
+
+                Employee employeeFromDb = await _employeeRepository.GetEmployee(id);
+
+                if (employeeFromDb == null)
+                {
+                    return NotFound($"Employee with {id} not found.");
+                }
+
+                return (IActionResult)await _employeeRepository.UpdateEmployee(employee);
+
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError,ex.Message);
+            }
         }
-    }
+   
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteEmployee(int id)
+        {
+            try
+            {
+                var empToDelete = await _employeeRepository.GetEmployee(id);
+                if (empToDelete == null)
+                {
+                    return NotFound($"Employee with {id} not found.");
+                }
+
+                await Task.Run(()=>{
+                    _employeeRepository.DeleteEmployee(id);
+                });
+
+                return StatusCode(StatusCodes.Status200OK,empToDelete);
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+    } 
 }
