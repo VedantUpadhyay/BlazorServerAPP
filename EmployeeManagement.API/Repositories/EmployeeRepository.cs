@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.API.Data;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,26 @@ namespace EmployeeManagement.API.Repositories
 
                 return _db.Employees
                    .FirstOrDefault(e => e.Email == email);
+            });
+        }
+
+        public async Task<List<Employee>> Seach(string name, Gender? gender)
+        {
+            IEnumerable<Employee> query = _db.Employees;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(e => e.FirstName.Contains(name) 
+                    || e.LastName.Contains(name)
+                );
+            }
+            if (gender != null)
+            {
+                query = query.Where(e => e.Gender == gender);
+            }
+
+            return await Task.Run(() => {
+                return query.ToList();
             });
         }
 

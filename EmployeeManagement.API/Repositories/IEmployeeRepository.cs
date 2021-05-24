@@ -15,5 +15,7 @@ namespace EmployeeManagement.API.Repositories
         void DeleteEmployee(int employeeId);
 
         Task<Employee> GetEmployeeByEmail(string email);
+
+        Task<List<Employee>> Seach(string name, Gender? gender);
     }
 }
