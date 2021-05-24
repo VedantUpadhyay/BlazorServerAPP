@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorServerApp", "BlazorSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.Models", "EmployeeManagement.Models\EmployeeManagement.Models.csproj", "{662FC3FA-1A67-4C2A-8076-064A26F1246A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeManagement.API", "EmployeeManagement.API\EmployeeManagement.API.csproj", "{28419794-282A-4808-B668-9F1D1110A92D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{662FC3FA-1A67-4C2A-8076-064A26F1246A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{662FC3FA-1A67-4C2A-8076-064A26F1246A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{662FC3FA-1A67-4C2A-8076-064A26F1246A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28419794-282A-4808-B668-9F1D1110A92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28419794-282A-4808-B668-9F1D1110A92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28419794-282A-4808-B668-9F1D1110A92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28419794-282A-4808-B668-9F1D1110A92D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

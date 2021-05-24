@@ -1,30 +1,39 @@
 ﻿using EmployeeManagement.Models;
-using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
-namespace BlazorServerApp.Pages
+namespace EmployeeManagement.API.Data
 {
-    public class EmployeeListBase : ComponentBase
+    public class ApplicationDbContext : DbContext
     {
-        public IEnumerable<Employee> Employees { get; set; }
-
-
-        protected override async Task OnInitializedAsync()
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
-            await Task.Run(LoadEmployees);
         }
 
+        public DbSet<Employee> Employees { get; set; }
 
-        private void LoadEmployees()
+        public DbSet<Department> Departments { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Thread.Sleep(500);
+            base.OnModelCreating(modelBuilder);
 
-            Employee e1 = new()
+            //Seed Departments Table
+            modelBuilder.Entity<Department>().HasData(
+                new Department { DepartmentId = 1, DepartmentName = "IT" });
+            modelBuilder.Entity<Department>().HasData(
+                new Department { DepartmentId = 2, DepartmentName = "HR" });
+            modelBuilder.Entity<Department>().HasData(
+                new Department { DepartmentId = 3, DepartmentName = "Payroll" });
+            modelBuilder.Entity<Department>().HasData(
+                new Department { DepartmentId = 4, DepartmentName = "Admin" });
+
+            // Seed Employee Table
+            modelBuilder.Entity<Employee>().HasData(new Employee
             {
                 EmployeeId = 1,
                 FirstName = "John",
@@ -34,9 +43,9 @@ namespace BlazorServerApp.Pages
                 Gender = Gender.Male,
                 DepartmentId = 1,
                 PhotoPath = "images/john.png"
-            };
+            });
 
-            Employee e2 = new()
+            modelBuilder.Entity<Employee>().HasData(new Employee
             {
                 EmployeeId = 2,
                 FirstName = "Sam",
@@ -46,9 +55,9 @@ namespace BlazorServerApp.Pages
                 Gender = Gender.Male,
                 DepartmentId = 2,
                 PhotoPath = "images/sam.jpg"
-            };
+            });
 
-            Employee e3 = new()
+            modelBuilder.Entity<Employee>().HasData(new Employee
             {
                 EmployeeId = 3,
                 FirstName = "Mary",
@@ -58,11 +67,11 @@ namespace BlazorServerApp.Pages
                 Gender = Gender.Female,
                 DepartmentId = 1,
                 PhotoPath = "images/mary.png"
-            };
+            });
 
-            Employee e4 = new()
+            modelBuilder.Entity<Employee>().HasData(new Employee
             {
-                EmployeeId = 3,
+                EmployeeId = 4,
                 FirstName = "Sara",
                 LastName = "Longway",
                 Email = "sara@pragimtech.com",
@@ -70,9 +79,7 @@ namespace BlazorServerApp.Pages
                 Gender = Gender.Female,
                 DepartmentId = 3,
                 PhotoPath = "images/sara.png"
-            };
-
-            Employees = new List<Employee> { e1, e2, e3, e4 };
+            });
         }
     }
 }
