@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.API.Repositories;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,8 +10,10 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.API.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _employeeRepository;

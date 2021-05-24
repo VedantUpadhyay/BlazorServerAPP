@@ -52,7 +52,7 @@ a, .btn-link {
 
 .imageThumbnail {
     height: 200px;
-    width: auto;
+    width: fit-content();
 }
 
 .spinner {
