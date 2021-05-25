@@ -1,0 +1,32 @@
+﻿@page "/{search}"
+@using Microsoft.AspNetCore.WebUtilities;
+@using Microsoft.Extensions.Primitives;
+@inject NavigationManager navManager
+
+<h3>Component</h3>
+
+<h4>@ChatName</h4>
+
+<h4>Ansoloute URI : @uri</h4>
+
+<h4>Q : @uri.Query</h4>
+
+@code {
+    [Parameter]
+    public string search { get; set; }
+
+    public string ChatName { get; set; }
+
+    public Uri uri { get; set; }
+
+    protected async override Task OnInitializedAsync()
+    {
+        StringValues chatParam;
+        uri = navManager.ToAbsoluteUri(navManager.Uri);
+        if (QueryHelpers.ParseQuery(uri.Query).TryGetValue("q", out chatParam))
+        {
+            ChatName = chatParam;
+        }
+    }
+
+}

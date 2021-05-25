@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagement.API.Repositories
+namespace BlazorServerApp.Services
 {
-    public interface IDepartmentRepository
+    public interface IDepartmentService
     {
         Task<IEnumerable<Department>> GetDepartments();
-        Task<Department> GetDepartment(int departmentId);
+        Task<Department> GetDepartment(int id);
     }
 }

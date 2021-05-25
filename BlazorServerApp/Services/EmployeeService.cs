@@ -17,6 +17,10 @@ namespace BlazorServerApp.Services
             HttpClient = httpClient;
         }
 
+        public async Task<Employee> GetEmployee(int id)
+        {
+            return await HttpClient.GetJsonAsync<Employee>($"api/employees/{id}");
+        }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
         {

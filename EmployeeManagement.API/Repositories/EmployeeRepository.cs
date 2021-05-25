@@ -1,6 +1,7 @@
 ﻿using EmployeeManagement.API.Data;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,9 @@ namespace EmployeeManagement.API.Repositories
 
         public async Task<Employee> GetEmployee(int employeeId)
         {
-            return await _db.Employees.FindAsync(employeeId);
+            return await _db.Employees
+                .Include(e => e.Department)
+                .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
         }
 
         public List<Employee> GetEmployees()

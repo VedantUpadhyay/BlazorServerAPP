@@ -1,0 +1,13 @@
+﻿@page "/binding"
+
+<h3>BindDemo</h3>
+
+<input type="text" @bind="@Name" @bind:event="oninput"/>
+
+<textarea @bind-class="@Name" @bind-class:event="onchange">
+
+</textarea>
+
+@code {
+    protected string Name { get; set; }
+}

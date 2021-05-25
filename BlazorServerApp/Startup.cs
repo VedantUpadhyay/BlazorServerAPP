@@ -34,6 +34,10 @@ namespace BlazorServerApp
                 {
                     client.BaseAddress = new Uri("https://localhost:44390/");
                 });
+            services.AddHttpClient<IDepartmentService, DepartmentService>(client =>
+             {
+                 client.BaseAddress = new Uri("https://localhost:44390/");
+             });
             services.AddCors(options => options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin()));
         }
 

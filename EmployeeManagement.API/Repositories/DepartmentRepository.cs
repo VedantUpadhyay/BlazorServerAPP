@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.API.Data;
 using EmployeeManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,15 @@ namespace EmployeeManagement.API.Repositories
             _db = db;
         }
 
-        public Department GetDepartment(int departmentId)
+        public async Task<Department> GetDepartment(int departmentId)
         {
-            return _db.Departments
-                .FirstOrDefault(d => d.DepartmentId == departmentId);
+            return await _db.Departments
+                        .FirstOrDefaultAsync(d => d.DepartmentId == departmentId);
         }
 
-        public IEnumerable<Department> GetDepartments()
+        public async Task<IEnumerable<Department>> GetDepartments()
         {
-            return _db.Departments;
+            return await _db.Departments.ToListAsync();
         }
     }
 }
