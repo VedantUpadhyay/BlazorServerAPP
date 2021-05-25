@@ -81,8 +81,8 @@ namespace EmployeeManagement.API.Repositories
 
         public async Task<Employee> UpdateEmployee(Employee employee)
         {
-            var result = _db.Employees
-                .FirstOrDefault(e => e.EmployeeId == employee.EmployeeId);
+            var result = await _db.Employees
+                .FirstOrDefaultAsync(e => e.EmployeeId == employee.EmployeeId);
 
             if (result != null)
             {
@@ -93,7 +93,6 @@ namespace EmployeeManagement.API.Repositories
                 result.Gender = employee.Gender;
                 result.DepartmentId = employee.DepartmentId;
                 result.PhotoPath = employee.PhotoPath;
-
                 await _db.SaveChangesAsync();
 
                 return result;

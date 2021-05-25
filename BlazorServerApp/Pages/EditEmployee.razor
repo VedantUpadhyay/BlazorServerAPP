@@ -7,6 +7,10 @@
 <h3>Edit Employee</h3>
 
 <EditForm Model="@Employee">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary></ValidationSummary>
+
     <div class="form-group row">
         <label for="firstName" class="col-sm-2 col-form-label">
             First Name
@@ -14,6 +18,7 @@
         <div class="col-sm-10">
             <InputText id="firstName" class="form-control" placeholder="First Name"
                        @bind-Value="Employee.FirstName" />
+
         </div>
     </div>
     <div class="form-group row">
@@ -30,7 +35,7 @@
             Email
         </label>
         <div class="col-sm-10">
-            <InputText id="email" class="form-control" placeholder="Email"
+            <InputText type="email" id="email" class="form-control" placeholder="Email"
                        @bind-Value="Employee.Email" />
         </div>
     </div>
@@ -64,6 +69,16 @@
                     <option value="@g">@g</option>
                 }
             </InputSelect>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="dateOfBirth" class="col-sm-2 col-form-label">
+            DateOfBirth
+        </label>
+        <div class="col-sm-10">
+            <InputDate id="dateOfBirth" class="form-control"
+                       @bind-Value="Employee.DateOfBrith" />
         </div>
     </div>
 </EditForm>
