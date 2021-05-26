@@ -79,7 +79,7 @@ namespace EmployeeManagement.API.Repositories
         }
 
 
-        public async Task<Employee> UpdateEmployee(Employee employee)
+        public async Task<IActionResult> UpdateEmployee(Employee employee)
         {
             var result = await _db.Employees
                 .FirstOrDefaultAsync(e => e.EmployeeId == employee.EmployeeId);
@@ -95,7 +95,7 @@ namespace EmployeeManagement.API.Repositories
                 result.PhotoPath = employee.PhotoPath;
                 await _db.SaveChangesAsync();
 
-                return result;
+                return (IActionResult)result;
             }
             return null;
         }

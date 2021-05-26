@@ -1,4 +1,5 @@
 ﻿@page "/editemployee/{id}"
+@page "/editemployee"
 
 @using EmployeeManagement.Models
 
@@ -6,11 +7,11 @@
 
 <h3>Edit Employee</h3>
 
-<EditForm Model="@Employee">
+<EditForm Model="@Employee" OnValidSubmit="HandleValidSubmit">
 
     <DataAnnotationsValidator />
     <ValidationSummary></ValidationSummary>
-
+    <div>@ExceptionMessage</div>
     <div class="form-group row">
         <label for="firstName" class="col-sm-2 col-form-label">
             First Name
@@ -81,4 +82,5 @@
                        @bind-Value="Employee.DateOfBrith" />
         </div>
     </div>
+    <button class="btn btn-success" type="submit">Update</button>
 </EditForm>
