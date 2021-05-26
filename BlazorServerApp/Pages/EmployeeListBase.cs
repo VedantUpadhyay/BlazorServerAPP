@@ -16,6 +16,10 @@ namespace BlazorServerApp.Pages
 
         public IEnumerable<Employee> Employees { get; set; }
 
+        public ConfirmBase DeleteConfirmation { get; set; }
+
+        public int SelectedEmployeeId { get; set; }
+
 
         protected override async Task OnInitializedAsync()
         {
@@ -23,7 +27,24 @@ namespace BlazorServerApp.Pages
             //await Task.Run(LoadEmployees);
         }
 
+        public async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            if (deleteConfirmed)
+            {
+                if (await EmployeeService.DeleteEmployee(SelectedEmployeeId))
+                {
+                    Employees = (await EmployeeService.GetEmployees()).ToList();
+                }
+            }
+        }
 
-       
+        protected void Delete_Click(int id)
+        {
+            SelectedEmployeeId = id;
+            DeleteConfirmation.Show();
+        }
+
+
+
     }
 }

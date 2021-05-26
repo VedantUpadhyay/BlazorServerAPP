@@ -38,5 +38,16 @@ namespace BlazorServerApp.Services
         {
             return (Employee)await HttpClient.PutJsonAsync<IActionResult>($"api/employees/{updatedEmployee.EmployeeId}", updatedEmployee);
         }
+
+        public async Task<bool> DeleteEmployee(int id)
+        {
+            var result = await HttpClient.DeleteAsync($"api/employees/{id}");
+
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

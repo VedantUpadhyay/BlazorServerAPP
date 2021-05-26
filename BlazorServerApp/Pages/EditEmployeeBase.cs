@@ -18,11 +18,15 @@ namespace BlazorServerApp.Pages
         [Inject]
         public IDepartmentService DepartmentService { get; set; }
 
+        public string PageHeaderText { get; set; }
+
         public Employee Employee { get; set; } = new();
         public int DepartmentId { get; set; }
 
         [Parameter]
         public string Id { get; set; }
+
+        public ConfirmBase DeleteConfirmation { get; set; }
 
         public string ExceptionMessage { get; set; }
 
@@ -32,10 +36,12 @@ namespace BlazorServerApp.Pages
         {
             if (int.TryParse(Id, out int newEmployeeId) && newEmployeeId != 0)
             {
+                PageHeaderText = "Edit Employee";
                 Employee = await EmployeeService.GetEmployee(int.Parse(Id));
             }
             else
             {
+                PageHeaderText = "Create Employee";
                 Employee = new Employee
                 {
                     DepartmentId = 1,
@@ -80,9 +86,23 @@ namespace BlazorServerApp.Pages
                 }
                 NavigationManager.NavigateTo("/");
             }
-          
-            
-            
+ 
+        }
+
+        public async Task ConfirmDelete_Click(bool confirm)
+        {
+            if (confirm)
+            {
+                if (await EmployeeService.DeleteEmployee(Employee.EmployeeId))
+                {
+                    NavigationManager.NavigateTo("/");
+                }
+            }
+        }
+
+        protected void Delete_Click(dynamic e)
+        {
+            DeleteConfirmation.Show();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace EmployeeManagement.API.Repositories
             if (result != null)
             {
                 _db.Employees.Remove(result);
-                await _db.SaveChangesAsync();
+                _db.SaveChanges();
             }
         }
 
