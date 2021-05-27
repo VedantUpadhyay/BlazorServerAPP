@@ -1,0 +1,9 @@
+﻿<h3 style="@ElStyle;@Border">Grand Child</h3>
+
+@code {
+	[CascadingParameter(Name ="color")]
+	public string ElStyle { get; set; }
+
+	[CascadingParameter(Name ="border")]
+	public string Border { get; set; }
+}

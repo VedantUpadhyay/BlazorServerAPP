@@ -1,0 +1,13 @@
+﻿@page "/pc/c"
+
+<h3 style="@ElemStyle;@Border">ChildComponent</h3>
+<GrandChildComponent/>
+
+@code {
+	[CascadingParameter(Name ="color")]
+	public string ElemStyle { get; set; }
+
+	[CascadingParameter(Name ="border")]
+	public string Border { get; set; }
+
+}

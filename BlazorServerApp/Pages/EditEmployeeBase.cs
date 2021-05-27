@@ -1,15 +1,20 @@
 ﻿using BlazorServerApp.Services;
 using EmployeeManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace BlazorServerApp.Pages
 {
     public class EditEmployeeBase : ComponentBase
     {
+        [CascadingParameter]
+        public Task<AuthenticationState> AuthenticationStateTask { get; set; }
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -34,6 +39,13 @@ namespace BlazorServerApp.Pages
 
         protected async override Task OnInitializedAsync()
         {
+            if(!AuthenticationStateTask.Result.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/editemployee/{Id}");
+                
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }
+
             if (int.TryParse(Id, out int newEmployeeId) && newEmployeeId != 0)
             {
                 PageHeaderText = "Edit Employee";
@@ -81,8 +93,6 @@ namespace BlazorServerApp.Pages
                 }
                 catch (Exception)
                 {
-
-                    throw;
                 }
                 NavigationManager.NavigateTo("/");
             }
