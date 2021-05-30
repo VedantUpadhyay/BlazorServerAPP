@@ -45,7 +45,9 @@ namespace EmployeeManagement.API.Repositories
 
         public List<Employee> GetEmployees()
         {
-            return _db.Employees.ToList();
+            return _db.Employees
+                .Include("Department")
+                .ToList();
         }
 
 

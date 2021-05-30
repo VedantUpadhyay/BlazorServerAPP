@@ -1,4 +1,5 @@
 
+using BlazorServerApp.Hubs;
 using BlazorServerApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
@@ -28,6 +29,7 @@ namespace BlazorServerApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSignalR();
             services.AddHttpContextAccessor();
             services.AddRazorPages();
             services.AddServerSideBlazor();
@@ -44,7 +46,8 @@ namespace BlazorServerApp
 
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
-           
+
+            services.AddSignalR();
 
         }
 
@@ -75,8 +78,10 @@ namespace BlazorServerApp
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/myHub");
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
+             
             });
 
         }

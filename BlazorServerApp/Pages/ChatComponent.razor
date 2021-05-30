@@ -1,0 +1,20 @@
+﻿@page "/chat"
+
+@inherits ChatComponentBase
+
+<div>
+    <input type="text" @bind-Value="@MyUserName" @bind-Value:event="onchange" />
+    <br />
+    <br />
+    <input type="text" @bind-Value="@Message" @bind-Value:event="onchange" />
+    <br />
+    <br />
+    <button class="btn btn-success" @onclick="SendMessage">Send</button>
+</div>
+
+<div>
+    @foreach (var msg in Messages)
+    {
+        <p>@msg</p>
+    }
+</div>
